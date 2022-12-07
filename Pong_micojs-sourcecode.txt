@@ -1,3 +1,10 @@
+// Pong by Jicehel using micojs IDE
+// https://micojs.github.io/
+//
+// Version for Gamebuino META
+// https://gamebuino.com/
+//
+// source: 07/12/2022
 
 // Define colors
 const BLACK = setPen(0, 0, 0);
@@ -27,12 +34,12 @@ class ball {
         this.x = (screenWidth  - this.width)  /2;
         this.y = (screenHeight - this.height) /2;
         this.speedX = 0;
-        while (this.speedX == 0) {
-            this.speedX = floor(rand(-2,2)); 
+        while (abs(this.speedX) < 2) {
+            this.speedX = floor(rand(-3,4)); 
         }  
         this.speedY = 0;
-        while (this.speedY == 0) {
-            this.speedY = floor(rand(-2,2));
+        while (abs(this.speedY) < 2) {
+            this.speedY = floor(rand(-3,4));
         }  
     }    
 
@@ -89,11 +96,12 @@ class game {
         this.rscore = 0;
         this.gameover = 0;
         this.waitTime = 40;
+        this.winscore = 3;
         this.color = GRAY;
     }
 
     update() {
-        if (this.lscore > 12 || this.rscore > 12)
+        if (this.lscore >= this.winscore || this.rscore >= this.winscore)
             this.gameover = 1;
         if (this.ballLaunched == 0) {
             if (this.wait > 0)
@@ -108,7 +116,9 @@ class game {
         rect(0, 0, 1, screenHeight);
         rect(0, 0, screenWidth, 1);
         rect(screenWidth - 1, 0, 1, screenHeight);
-        rect(screenWidth/2 - 1, 0, 1, screenHeight);
+        for (let i = 0; i < screenHeight; i = i + 30) {
+            rect(screenWidth/2 - 1, i + 13, 1, 15);
+        }
         rect(0, screenHeight - 1, screenWidth, 1);
     }
 }
@@ -190,7 +200,7 @@ function update(time) {
     ponggame.update();
     lpaddle.update();
     rpaddle.update();
-    if (ponggame.ballLaunched == 1)
+    if (ponggame.ballLaunched == 1 && ponggame.gameover == 0)
         gameball.update();
 }
 
@@ -198,13 +208,18 @@ function render() {
     setPen(bgColor);
     clear();
     setPen(txtColor);
-    text("Pong by Jicehel", 12, 5);
+    setFont(R.fontAdventurer);
+    text("Pong by Jicehel", 2, 5);
     // show score
+    setFont(R.fontDonut);
     setPen(YELLOW);
-    text("Score : ", 95, 5)
-    text(ponggame.lscore, 125, 5);
-    text("/", 135, 5);
-    text(ponggame.rscore, 145, 5);
+    text("Score : ", 60, 115)
+    setPen(GREEN);
+    text(ponggame.lscore, 115, 115);
+    setPen(YELLOW);
+    text("/", 130, 115);
+    setPen(RED);
+    text(ponggame.rscore, 145, 115);
     ponggame.render();
     if (ponggame.gameover == 0) {
         lpaddle.render();
@@ -214,10 +229,11 @@ function render() {
 
     } else {
         setPen(YELLOW);
-        if (ponggame.lscore > 12)
-            text("Well done left player, you won !!", 25, 60);
+        if (ponggame.lscore > ponggame.winscore)
+            text("Well done left player,", 4, 50);
         else    
-            text("Well done right player, you won !!", 25, 60);
+            text("Well done right player,", 4, 50);
+        text("  you won the game !! ", 10, 70);   
     }
 
 }
