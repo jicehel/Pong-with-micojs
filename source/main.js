@@ -16,7 +16,7 @@ const BLACK = setPen(0, 0, 0);
 const RED = setPen(240, 0, 0);
 const GREEN = setPen(0, 240, 0);
 const GRAY = setPen(100, 100, 100);
-const YELLOW = setPen(160,140, 80);
+const YELLOW = setPen(240, 190, 140);
 const TXT_COLOR = setPen(80, 0, 200);
 const bgColor = setPen(BLACK);
 const txtColor = setPen(TXT_COLOR);
@@ -29,6 +29,7 @@ const gameball = new ball();
 const ponggame = new game();
 
 function init() {
+    setFPS(25);
     screenWidth = getWidth();
     screenHeight = getHeight();
     lpaddle.init();

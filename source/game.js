@@ -12,26 +12,34 @@ class game {
     }
 
     renderBoot() {
-        setPen(bgColor);
+        
+        // Color to use with the image version
+        setPen(0);
+        
+        // Color used with print version
+        // setPen(BLACK);
+        
         clear();
-        setPen(0); // pen color also has an effect on image() calls
         image(R.Screen1,screenWidth/2, screenHeight/2);
-        setPen(RED);
-        rect(15,0,130,46);
-        setPen(BLACK);
-        rect(18,3,124,40);
-        rect(0,62,screenWidth,20);
-        rect(0,95,screenWidth,35);
-        setPen(txtColor);
-        setFont(R.fontAdventurer);    
-        text("Pong by Jicehel", 23, 8);
-        setPen(GREEN);
-        text(" Press <A> to start", 0,65);
-        setPen(RED);
-        setFont(R.fontTiny);
-        text ("For Gamebuino META", 35, 28);
-        text("written with micojs", 0,100);
-        text("https://micojs.github.io/",0, 115);
+
+        // Old code used to generate boot screen
+        //
+        // setPen(RED);
+        // rect(15,0,130,46);
+        // setPen(BLACK);
+        // rect(18,3,124,40);
+        // rect(0,62,screenWidth,20);
+        // rect(0,95,screenWidth,35);
+        // setPen(txtColor);
+        // setFont(R.fontAdventurer);    
+        // text("Pong by Jicehel", 23, 8);
+        // setPen(GREEN);
+        // text(" Press <A> to start", 0,65);
+        // setPen(RED);
+        // setFont(R.fontTiny);
+        // text ("For Gamebuino META", 35, 28);
+        // text("written with micojs", 0,100);
+        // text("https://micojs.github.io/",0, 115);
     }
 
     boot() {
@@ -42,10 +50,9 @@ class game {
     }
 
     renderGameOver() {
-        setPen(bgColor);
-        clear();
         this.render();
-        setPen(BLACK);
+        // setPen(BLACK);
+        setPen(YELLOW);
         if (ponggame.lscore > ponggame.winscore)
             text("Well done left player,", 4, 35);
         else    
@@ -76,12 +83,18 @@ class game {
 
 
     render() {
-        setPen(bgColor);
-        clear();
+
+        // color used with print version
+        // setPen(30,30,80);
+
+        // color used with image version
         setPen(0);
+        clear();
+
         image(R.Fond,screenWidth/2, screenHeight/2);
         
         // Old game field drawn
+        // setPen(GRAY);
         // rect(0, 0, 1, screenHeight);
         // rect(0, 0, screenWidth, 1);
         // rect(screenWidth - 1, 0, 1, screenHeight);
@@ -92,12 +105,13 @@ class game {
         
         // show score
         setFont(R.fontDonut);
-        setPen(BLACK);
-        text("Score : ", 60, 115)
-        text("/", 130, 115);
+        // setPen(BLACK);
+        setPen(YELLOW);
+        text("Score : ", 60, 112)
+        text("/", 130, 112);
         setPen(GREEN);
-        text(ponggame.lscore, 115, 115);
+        text(ponggame.lscore, 115, 112);
         setPen(RED);
-        text(ponggame.rscore, 145, 115);
+        text(ponggame.rscore, 145, 112);
     }
 }

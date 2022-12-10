@@ -13,17 +13,33 @@ class ball {
     newball() {
         ponggame.ballLaunched = 0;
         ponggame.wait = ponggame.waitTime;
+        setLED(0);
         this.x = (screenWidth  - this.width)  /2;
         this.y = (screenHeight - this.height) /2;
+
+        /*
         this.speedX = 0;
-        while (abs(this.speedX) < 2) {
+        while (abs(this.speedX) < 2) { // since maxXSpeed is 2, this should never be false.
             this.speedX = floor(rand(-this.maxXSpeed,this.maxXSpeed)); 
-        }  
+        }
         this.speedY = 0;
         while (abs(this.speedY) < 2) {
             this.speedY = floor(rand(-this.maxYSpeed,this.maxYSpeed));
         }  
-    }    
+        */
+
+        // I think what you meant to do is the following.
+        
+        if (rand(2))
+            this.speedX = -this.maxXSpeed;
+        else
+            this.speedX = this.maxXSpeed;
+
+        if (rand(2))
+            this.speedY = -this.maxYSpeed;
+        else
+            this.speedY = this.maxYSpeed;
+    }
 
     update() {
 
@@ -47,6 +63,7 @@ class ball {
                     this.speedX = -this.speedX;
                 } else {
                     ponggame.rscore++;
+                    setLED(RED);
                     this.newball();
                 }    
             }
@@ -57,6 +74,7 @@ class ball {
                     this.speedX = -this.speedX;
                 } else {
                     ponggame.lscore++;
+                    setLED(GREEN);
                     this.newball();    
                 }    
             }
@@ -71,4 +89,3 @@ class ball {
          rect(this.x,this.y,this.width, this.height)
     }
 }
-
