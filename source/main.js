@@ -69,11 +69,20 @@ function update(time) {
 }
 
 function render() {
+    if (ponggame.gamestate == "boot" || ponggame.gamestate == "boot - A pressed") {
+        ponggame.renderBoot();
+        return;
+    }
     if (ponggame.gamestate == "running") {
         ponggame.render();
         lpaddle.render();
         rpaddle.render();
         if (ponggame.ballLaunched == 1)
             gameball.render();
+        return;
+    }
+    if (ponggame.gamestate == "gameover") {
+        ponggame.renderGameOver();
+        return;
     }
 }

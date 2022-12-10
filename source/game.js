@@ -11,10 +11,10 @@ class game {
         this.color = GRAY;
     }
 
-
-    boot() {
+    renderBoot() {
         setPen(bgColor);
         clear();
+        setPen(0); // pen color also has an effect on image() calls
         image(R.Screen1,screenWidth/2, screenHeight/2);
         setPen(RED);
         rect(15,0,130,46);
@@ -32,17 +32,20 @@ class game {
         text ("For Gamebuino META", 35, 28);
         text("written with micojs", 0,100);
         text("https://micojs.github.io/",0, 115);
+    }
+
+    boot() {
+        // don't draw in update!
         if(A) {
             this.gamestate = "boot - A pressed";
         }
     }
 
-
-    gameover() {
+    renderGameOver() {
         setPen(bgColor);
         clear();
         this.render();
-        setPen(YELLOW);
+        setPen(BLACK);
         if (ponggame.lscore > ponggame.winscore)
             text("Well done left player,", 4, 35);
         else    
@@ -51,8 +54,11 @@ class game {
         
         setPen(GREEN);
         text("Press <A> to start", 20,85);
+    }
+
+    gameover() {
         if(A) {
-            init();
+            this.init();
             this.gamestate = "gameover - A pressed";   
         }    
     }
@@ -72,6 +78,7 @@ class game {
     render() {
         setPen(bgColor);
         clear();
+        setPen(0);
         image(R.Fond,screenWidth/2, screenHeight/2);
         
         // Old game field drawn
@@ -85,12 +92,11 @@ class game {
         
         // show score
         setFont(R.fontDonut);
-        setPen(YELLOW);
+        setPen(BLACK);
         text("Score : ", 60, 115)
+        text("/", 130, 115);
         setPen(GREEN);
         text(ponggame.lscore, 115, 115);
-        setPen(YELLOW);
-        text("/", 130, 115);
         setPen(RED);
         text(ponggame.rscore, 145, 115);
     }
